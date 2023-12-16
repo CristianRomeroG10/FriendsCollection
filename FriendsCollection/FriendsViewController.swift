@@ -40,48 +40,24 @@ class FriendsViewController: UIViewController {
         
     }
     func generateLayout() -> UICollectionViewLayout{
-        let padding: CGFloat = 20
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                              heightDimension: .fractionalHeight(1.0))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
-        
-        let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1),
-            heightDimension: .fractionalHeight(1)
-            )
-        )
-        let group = NSCollectionLayoutGroup.horizontal(
-            layoutSize: NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(1),
-                heightDimension: .fractionalHeight(1/2)
-            ),
-            subitem: item,
-            count: 2)
-        
-        group.interItemSpacing = .fixed(padding)
-        
-        group.contentInsets = NSDirectionalEdgeInsets(
-            top: 0,
-            leading: padding,
-            bottom: 0,
-            trailing: padding
-        )
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                               heightDimension: .absolute(200))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 2)
+        let spacing = CGFloat(10)
+        group.interItemSpacing = .fixed(spacing)
         
         let section = NSCollectionLayoutSection(group: group)
+        section.interGroupSpacing = spacing
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
         
-        section.contentInsets = NSDirectionalEdgeInsets(
-            top: padding,
-            leading: 0,
-            bottom: padding,
-            trailing: 0
-        )
-        return UICollectionViewCompositionalLayout(section: section)
-        
-        
-        
+        let layout = UICollectionViewCompositionalLayout(section: section)
+        return layout
+        }
     }
-    
-   
-
-}
 
 
 
